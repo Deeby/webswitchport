@@ -1,0 +1,40 @@
+.login_form {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.field_input {
+    width: 65%;
+    float: left;
+}
+
+.field_input_label {
+    width: 30%;
+    float: left;
+}
+
+.login_btn {
+    width: 100%;
+    float: center;
+}
+
+.field {
+    display: block;
+}
+
+.device_form div {
+    display: inline-block;
+}
+
+.device_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

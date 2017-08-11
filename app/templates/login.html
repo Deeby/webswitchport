@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+{% block device %}
+    {% from "macros.html" import render_login_fields %}
+    {% from "macros.html" import render_field %}
+    <div class="login_form">
+        <form method="POST" id="login_form">
+            {{ form.csrf_token }}
+            {{ render_login_fields(form.login_fld) }}
+            {{ render_login_fields(form.pass_fld) }}
+            <div class="login_btn">{{ render_field(form.login_btn) }}</div>
+        </form>
+    </div>
+{% endblock %}

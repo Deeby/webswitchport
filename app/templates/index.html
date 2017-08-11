@@ -1,0 +1,16 @@
+<html>
+<head>
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Управление портами {{ user.login }}</title>
+    {% endif %}
+    {#        <script type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}"></script>#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="index_root">
+    {% block device %}{% endblock %}
+</div>
+</body>
+</html>

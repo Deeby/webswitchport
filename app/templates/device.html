@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% block device %}
+    {% from "macros.html" import render_device_fields %}
+    {% from "macros.html" import render_field %}
+    {# TODO: - create refresh page data withot submit form #}
+    {#    <script type=text/javascript>#}
+    {#        function senddev() {#}
+    {#            var data = $('#main_form').serializeArray();#}
+    {#            data.push({name: 'devicesel', value: "devicesel"});#}
+    {#            $.post("device", data);#}
+    {#        }#}
+    {#    </script>#}
+
+    <div>Имя пользователя: {{ user.login }}</div>
+    <br>
+    <div class="device_form">
+        <form method="POST" id="main_form">
+            {{ form.csrf_token }}
+            {#        {{ render_field_with_errors(form.device, **{"onchange":"senddev()"}) }}#}
+            {{ render_device_fields(form.device, **{"onchange":"this.form.submit()"}) }}
+            {{ render_device_fields(form.ports) }}
+            {{ render_device_fields(form.vlans) }}
+            {{ render_field(form.save) }}
+        </form>
+    </div>
+    {{ render_field(form.text) }}
+{% endblock %}

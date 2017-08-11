@@ -1,0 +1,36 @@
+{% macro render_device_fields(field) %}
+    <div class="field_device">
+        <span class="field_selector_label">{{ field.label }}</span><br>
+        <span class="field_selector">
+        {{ field(class_=field.short_name, **kwargs)|safe }}
+            {% if field.errors %}
+                <ul class=errors>
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </span>
+    </div>
+{% endmacro %}
+
+{% macro render_login_fields(field) %}
+    <div class="field_login">
+        <span class="field_input_label">{{ field.label }}</span>
+        <span class="field_input">
+            {{ field(class_=field.short_name, **kwargs)|safe }}
+            {% if field.errors %}
+                <ul class=errors>
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </span>
+    </div>
+{% endmacro %}
+
+
+{% macro render_field(field) %}
+    <span class="field">{{ field(**kwargs)|safe }}</span>
+{% endmacro %}
