@@ -6,22 +6,22 @@ defaults:
     device_type: cisco_ios
     secret: ''
 devices:
-#    msk101-sw-root:
-#        ip: 10.101.10.250
-#    agg-sw-1:
-#        ip: 10.101.10.110
-#    agg-sw-2:
-#        ip: 10.101.10.120
-#    agg-sw-3:
-#        ip: 10.101.10.130
-#    agg-sw-4:
-#        ip: 10.101.10.140
-#    agg-sw-5:
-#        ip: 10.101.10.150
-#    agg-sw-6:
-#        ip: 10.101.10.160
-#    agg-sw-7:
-#        ip: 10.101.10.170
+    msk101-sw-root:
+        ip: 10.101.10.250
+    agg-sw-1:
+        ip: 10.101.10.110
+    agg-sw-2:
+        ip: 10.101.10.120
+    agg-sw-3:
+        ip: 10.101.10.130
+    agg-sw-4:
+        ip: 10.101.10.140
+    agg-sw-5:
+        ip: 10.101.10.150
+    agg-sw-6:
+        ip: 10.101.10.160
+    agg-sw-7:
+        ip: 10.101.10.170
     acc-sw-0.1:
         ip: 10.101.10.1
     acc-sw-1.1:

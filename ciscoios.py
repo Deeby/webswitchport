@@ -64,7 +64,7 @@ class CiscoIOS:
                     'exit']
         return self.ssh.send_config_set(commands)
 
-    def get_interfaces(self, search_filter=None):
+    def get_all_interfaces(self, search_filter=None):
         if search_filter:
             command = 'sh int status |' + search_filter
         else:
@@ -88,40 +88,46 @@ class CiscoIOS:
                 ports.append(interface)
         return ports
 
+    def get_all_acc_int(self):
+        for c in self.get_all_interfaces():
+            if c['vlan'] != 'trunk':
+                yield c
+
     def get_all_vlans(self):
         vlans = []
-        for line in self.ssh.send_command('sh vl br | i ^[0-9].*').split('\n'):
-            vlans.append(line[0:line.find(' ')])
+        for line in self.ssh.send_command('show vlan brief | i ^[0-9].*active').split('\n'):
+            vlan = {}
+            vlan['vlan'] = line[:line.find(' ')]
+            vlan['name'] = line[line.find(' '):line.find(' active')]
+            vlans.append(vlan)
         return vlans
 
     def is_port_trunk(self, port):
         ret = False
-        if (self.ssh.send_command('sh int status | i ' + port)
+        if (self.ssh.send_command('show interface status | i ' + port)
                     .find('trunk') != -1):
             ret = True
         return ret
 
     def is_port_access(self, port):
         ret = False
-        if (self.ssh.send_command('sh int status | i ' + port)
+        if (self.ssh.send_command('show interface status | i ' + port)
                 .find('trunk') == -1):
             ret = True
         return ret
 
     def switch_access_vlan(self, port, vlan):
-        # if port not in self.get_interfaces():
-        #     return 'port not exist'
-        if vlan not in self.get_all_vlans():
-            return 'vlan not exist'
-        if self.is_port_trunk(port):
-            return 'trunk port found!'
-        commands = ['int ' + port,
-                    'sw ac vl ' + vlan]
+        commands = ['interface ' + port,
+                    'switchport access vlan ' + vlan]
         return self.ssh.send_config_set(commands)
+
+    def show_priv(self):
+        ret = self.ssh.send_command('show privilege')
+        return int(ret[ret.rfind(' '):])
 
     def find_port_by_mac(self, mac):
         """
-        Find port by mac add on locak switch
+        Find port by mac add on local switch
 
         :param mac: - mac add in format: aaaa.bbbb.cccc
         :return: - port name, if port exist and it only one
@@ -202,4 +208,4 @@ class CiscoIOS:
         return sw
 
     def write_memory(self):
-        return self.ssh.send_command('write memory')
+        return self.ssh.send_command('write mem')

@@ -10,18 +10,21 @@
     {#            $.post("device", data);#}
     {#        }#}
     {#    </script>#}
-
-    <div>Имя пользователя: {{ user.login }}</div>
+    <div class="user_login">login: <b>{{ session.login }}</b>, privilege level: <b>{{ session.priv }}</b></div>
     <br>
-    <div class="device_form">
-        <form method="POST" id="main_form">
-            {{ form.csrf_token }}
-            {#        {{ render_field_with_errors(form.device, **{"onchange":"senddev()"}) }}#}
-            {{ render_device_fields(form.device, **{"onchange":"this.form.submit()"}) }}
-            {{ render_device_fields(form.ports) }}
-            {{ render_device_fields(form.vlans) }}
-            {{ render_field(form.save) }}
-        </form>
-    </div>
+    <form method="POST" id="main_form">
+        <div class="device_form">
+        {{ form.csrf_token }}
+        {#        {{ render_field_with_errors(form.device, **{"onchange":"senddev()"}) }}#}
+        {{ render_device_fields(form.device, **{"onchange":"this.form.submit()"}) }}
+        {{ render_device_fields(form.ports) }}
+        {{ render_device_fields(form.vlans) }}
+        </div>
+        <div class="save_button"><br>
+        {{ render_field(form.save) }}
+        </div>
+    </form>
+    <div class = "text_field">
     {{ render_field(form.text) }}
+    </div>
 {% endblock %}

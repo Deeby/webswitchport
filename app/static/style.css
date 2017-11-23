@@ -22,19 +22,32 @@
 
 .login_btn {
     width: 100%;
+    display: flex;
     float: center;
-}
-
-.field {
-    display: block;
-}
-
-.device_form div {
-    display: inline-block;
 }
 
 .device_form {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.field_device select {
+    width: 250px;
+}
+
+.save_button span {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text_field textarea {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
 }

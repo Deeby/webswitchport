@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import yaml
+import random
 
 
 class ParseConf:
@@ -45,3 +46,11 @@ class ParseConf:
     def get_all_hosts(self):
         for hostname in self.nodes['devices']:
             yield self.get_host_by_name(hostname)
+
+    def get_all_acc_hosts(self):
+        for hostname in self.nodes['devices']:
+            if 'acc' in hostname:
+                yield self.get_host_by_name(hostname)
+
+    def get_random_acc_host(self):
+        return random.choice(list(self.get_all_acc_hosts()))
