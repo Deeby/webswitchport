@@ -208,4 +208,4 @@ class CiscoIOS:
         return sw
 
     def write_memory(self):
-        return self.ssh.send_command('write mem')
+        return self.ssh.send_command('write me')
