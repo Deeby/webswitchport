@@ -38,6 +38,7 @@ def device():
     conf.set_username(session.get('login'))
     conf.set_pass(session.get('password'))
     data = conf.get_all_acc_hosts()
+    data = sorted(data, key=lambda host: host['hostname'])
     form.device.choices = [('', 'select device')] + [(c['hostname'], c['hostname']) for c in data]
     form.text.data = 'Select the device...'
     if request.method == 'POST':
