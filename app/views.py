@@ -3,7 +3,8 @@ from flask import render_template, session, request, redirect, url_for
 import ciscoios
 import parseconf
 from app import app
-from app.forms import DeviceSelectForm, LoginForm
+from app.forms import DeviceSelectForm, LoginForm, FindForm
+from findport import search_port_by_mac
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -23,7 +24,7 @@ def login():
                 return render_template('login.html', form=form, user=session)
             priv = cisco.show_priv()
             session['priv'] = priv
-            return redirect(url_for('device'))
+            return redirect(url_for('findport'))
         else:
             return render_template('login.html', form=form, user=session)
     return render_template('login.html', user=session, form=form)
@@ -91,3 +92,26 @@ def device():
             form.process()
             form.text.data = ret
     return render_template('device.html', user=session, form=form)
+
+
+@app.route('/findport', methods=['GET', 'POST'])
+def findport():
+    form = FindForm()
+    form.text.data = 'Enter mac address...'
+    if request.method == 'POST':
+        if form.is_submitted() and 'Find' in request.form.values() and form.validate():
+            conf = parseconf.ParseConf()
+            conf.set_username(session.get('login'))
+            conf.set_pass(session.get('password'))
+            root = conf.get_host_by_name("msk101-sw-root")
+            # TODO - брать настройки из конфига
+            ret = search_port_by_mac(conf, root, form.mac.data, "medsigroup.ru")
+            if type(ret) is tuple:
+                form.text.data = ret[0] + '\t' + ret[1]
+            else:
+                form.text.data = ret
+            # TODO - сделать кнопку редиректа на заполненную форму device
+            # return redirect(url_for('device'))
+        else:
+            return render_template('findport.html', form=form, user=session)
+    return render_template('findport.html', user=session, form=form)

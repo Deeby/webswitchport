@@ -15,3 +15,10 @@ class LoginForm(FlaskForm):
     login_fld = StringField('Login', validators=[DataRequired(), Length(min=3, max=30)])
     pass_fld = PasswordField('Pass', [DataRequired()])
     login_btn = SubmitField('Sign in')
+
+
+class FindForm(FlaskForm):
+    mac = StringField('mac', validators=[DataRequired(), Length(min=4, max=17)])
+    find = SubmitField('Find')
+    text = TextAreaField('text')
+

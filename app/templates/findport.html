@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block device %}
+    {% from "macros.html" import render_login_fields %}
+    {% from "macros.html" import render_field %}
+    <div class="top">
+    <div class="links"><a href="findport">Find port</a> | <a href="device">Switch port</a></div>
+    <div class="delimiter"></div>
+    <div class="user_login">login: <b>{{ session.login }}</b>, privilege level: <b>{{ session.priv }}</b></div>
+    </div><br>
+
+    <form method="POST" id="find_form">
+        <div class="find_form">
+        {{ form.csrf_token }}
+        {{ render_login_fields(form.mac) }}
+            <div class="find_button">
+            {{ render_field(form.find) }}
+            </div>
+        </div>
+    </form>
+    <div class = "text_field">
+    {{ render_field(form.text) }}
+    </div>
+{% endblock %}

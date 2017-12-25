@@ -1,6 +1,6 @@
 ---
 defaults:
-    username: ''
+    username: 'portmanager'
     password: ''
     port: 22
     device_type: cisco_ios
