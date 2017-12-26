@@ -60,7 +60,7 @@
 
 .top {
     display: grid;
-    grid-template-columns: 150px 1fr 250px;
+    grid-template-columns: 400px 1fr 400px;
 }
 
 .find_form {
@@ -79,3 +79,6 @@
     vertical-align: top;
 }
 
+.user_login {
+    text-align: right;
+}

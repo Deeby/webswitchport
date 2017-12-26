@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_session import Session
 from werkzeug.contrib.fixers import ProxyFix
+import random
+import string
 
 # head -c 24 /dev/urandom > secret_key
 # filename = 'secret_key'
@@ -9,9 +11,16 @@ from werkzeug.contrib.fixers import ProxyFix
 app = Flask(__name__)
 # для gunicorn --bind 0.0.0.0:8000 --workers 3 run:app
 app.wsgi_app = ProxyFix(app.wsgi_app)
-app.config['SECRET_KEY'] = 'akshfklasdhfkasdf98asd7fasd'
+app.config['SECRET_KEY'] =''.join(random.SystemRandom().choice(string.digits + string.ascii_letters) for _ in range(30))
 app.config['SESSION_TYPE'] = 'filesystem'
+app.config['PERMANENT_SESSION_LIFETIME'] = 1800
 sess = Session()
 sess.init_app(app)
+
+
+@app.before_request
+def make_session_permanent():
+    sess.permanent = True
+
 
 from app import views

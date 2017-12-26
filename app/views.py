@@ -11,6 +11,7 @@ from findport import search_port_by_mac
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    session['auth'] = False
     if request.method == 'POST':
         if form.is_submitted() and form.validate():
             session['login'] = form.login_fld.data
@@ -20,7 +21,9 @@ def login():
             conf.set_pass(session.get('password'))
             try:  # Check login and password...
                 cisco = ciscoios.CiscoIOS(conf.get_random_acc_host())
+                session['auth'] = True
             except ciscoios.NetMikoAuthenticationException:
+                session['auth'] = False
                 return render_template('login.html', form=form, user=session)
             priv = cisco.show_priv()
             session['priv'] = priv
@@ -32,7 +35,7 @@ def login():
 
 @app.route('/device', methods=['GET', 'POST'])
 def device():
-    if not session.get('login'):
+    if not session.get('auth'):
         return redirect(url_for('login'))
     form = DeviceSelectForm(request.form)
     conf = parseconf.ParseConf()
@@ -96,6 +99,8 @@ def device():
 
 @app.route('/findport', methods=['GET', 'POST'])
 def findport():
+    if not session.get('auth'):
+        return redirect(url_for('login'))
     form = FindForm()
     form.text.data = 'Enter mac address...'
     if request.method == 'POST':
