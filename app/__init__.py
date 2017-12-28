@@ -18,9 +18,9 @@ sess = Session()
 sess.init_app(app)
 
 
-@app.before_request
-def make_session_permanent():
-    sess.permanent = True
+# @app.before_request
+# def make_session_permanent():
+#     sess.permanent = True
 
 
 from app import views
