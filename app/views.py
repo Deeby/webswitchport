@@ -4,7 +4,7 @@ import ciscoios
 import parseconf
 from app import app
 from app.forms import DeviceSelectForm, LoginForm, FindForm
-from findport import search_port_by_mac
+from findport import search_port_by_mac, mac_normalize
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -110,7 +110,7 @@ def findport():
             conf.set_pass(session.get('password'))
             root = conf.get_host_by_name("msk101-sw-root")
             # TODO - брать настройки из конфига
-            ret = search_port_by_mac(conf, root, form.mac.data, "medsigroup.ru")
+            ret = search_port_by_mac(conf, root, mac_normalize(form.mac.data), "medsigroup.ru")
             if type(ret) is tuple:
                 form.text.data = ret[0] + '\t' + ret[1]
             else:
