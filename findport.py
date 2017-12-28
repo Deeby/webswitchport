@@ -58,7 +58,7 @@ def mac_normalize(mac):
     """
     mac = re.sub(r'\s', '', mac)
     mac = mac.lower()
-    mac = re.sub(r'[^A-Fa-f0-9]', '', mac)
+    mac = re.sub(r'[^a-f0-9]', '', mac)
     if len(mac) > 4:
         mac = mac[::-1]  # inverse
         newmac = ''
