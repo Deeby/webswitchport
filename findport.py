@@ -72,7 +72,7 @@ def create_parser():
     parser = argparse.ArgumentParser(prog='findport.py',
                                      description='Find switch and port by mac address',
                                      epilog='Author: Konishev Dmitry, 11.04.2017')
-    parser.add_argument('-r', '--root', nargs='?', default='msk101-sw-root', help='root switch')
+    parser.add_argument('-r', '--root', nargs='?', default='core-sw-root', help='root switch')
     parser.add_argument('-m', '--mac', nargs='?', required=True, help='mac address - required')
     parser.add_argument('-d', '--domain', nargs='?', help='domain in "ip domain-name" option')
     parser.add_argument('-t', '--trace', const=True, action='store_const', default=False, help='show trace path')
