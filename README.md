@@ -76,11 +76,14 @@ usage: findport.py [-h] [-r [ROOT]] -m [MAC] [-d [DOMAIN]] [-t] [-e]
 4. Порты trunk не показываются в списке портов, доступных для настройки. 
 5. Учетная запись для перевода портов должна иметь следующие минимальные права доступа:
 
+```
 privilege configure level 5 interface
 privilege interface level 5 switchport access vlan
 privilege interface level 5 description
 privilege exec level 5 write memory
 privilege exec level 5 configure terminal
+```
+
 а также все соответствующие show привилегии.
 
 6. Для поиска портов по mac адресу достаточно только show привилегий.
