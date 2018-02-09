@@ -108,9 +108,9 @@ def findport():
             conf = parseconf.ParseConf()
             conf.set_username(session.get('login'))
             conf.set_pass(session.get('password'))
-            root = conf.get_host_by_name("msk101-sw-root")
+            root = conf.get_host_by_name("core-sw-root")
             # TODO - брать настройки из конфига
-            ret = search_port_by_mac(conf, root, mac_normalize(form.mac.data), "medsigroup.ru")
+            ret = search_port_by_mac(conf, root, mac_normalize(form.mac.data), "domain.ru")
             if type(ret) is tuple:
                 form.text.data = ret[0] + '\t' + ret[1]
             else:
